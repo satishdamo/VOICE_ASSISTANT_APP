@@ -1,0 +1,31 @@
+{
+  "name": "satvoice_app",
+  "version": "1.0.0",
+  "description": "SatVoice is an AI voice chat assistant",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "start": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write ."
+  },
+  "author": "Satish",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "wavesurfer.js": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "@types/wavesurfer.js": "^6.0.12",
+    "@vitejs/plugin-react": "^5.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.1"
+  }
+}

@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: linear-gradient(to bottom right, #1a237e, #00acc1);
+  color: #f5f5f5;
+}
+
+.voice-chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.voice-select {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.voice-select label {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.voice-select select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+}
+
+.voice-button {
+  background: linear-gradient(to right, #00e5ff, #00c853);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  padding: 1.2rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 255, 204, 0.3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.voice-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+}
+
+.voice-button.recording {
+  background-color: #f44336;
+  animation: pulseGlow 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 10px #f44336;
+  }
+  50% {
+    box-shadow: 0 0 20px #f44336;
+  }
+  100% {
+    box-shadow: 0 0 10px #f44336;
+  }
+}
+
+.waveform-canvas {
+  width: 100%;
+  max-width: 400px;
+  height: 100px;
+  margin: 1rem 0;
+  border-radius: 12px;
+  background: #1e2a38;
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.waveform-canvas.visible {
+  box-shadow:
+    0 0 20px rgba(0, 255, 204, 0.6),
+    0 0 40px rgba(0, 255, 204, 0.3);
+}
+
+.progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background: #eee;
+  margin: 1rem 0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #4caf50, #81c784);
+  transition: width 0.3s ease;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.controls button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #1e2a38;
+  color: #f0f0f0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.controls button:hover {
+  background: #2c3e50;
+}
+
+.text-output {
+  max-width: 600px;
+  text-align: center;
+  font-size: 1rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  word-break: break-word;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.transcript-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeWord 0.4s forwards;
+  margin-right: 4px; /* 👈 Adds spacing between words */
+}
+
+@keyframes fadeWord {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.spinner {
+  margin: 1rem auto;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid #00ffcc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .voice-chat-container {
+    padding: 1rem;
+  }
+
+  .voice-button {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  .voice-select {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .voice-select select {
+    width: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .text-output {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+
+.voice-button.recording {
+  animation: pulseGlow 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 10px #f44336;
+  }
+  50% {
+    box-shadow: 0 0 20px #f44336;
+  }
+  100% {
+    box-shadow: 0 0 10px #f44336;
+  }
+}
+
+.speaking-overlay {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 255, 204, 0.1);
+  color: #00ffcc;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.waveform-canvas {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.waveform-canvas.visible {
+  opacity: 1;
+}
+
+/* ChatbotAvatar.css */
+.chatbot-avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+.chatbot-avatar img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chatbot-avatar .mouth {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  width: 20px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.2s ease;
+}
+
+.chatbot-avatar.speaking .mouth {
+  transform: translateX(-50%) scaleY(2);
+}

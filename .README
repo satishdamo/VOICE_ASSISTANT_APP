@@ -1,0 +1,58 @@
+VoiceChat Data Flow:
+
+- User Interaction
+  → Button press triggers recording
+- Audio Recording & Streaming
+  → MediaRecorder captures audio and sends chunks
+- WebSocket Communication
+  → Sends audio chunks
+  ← Receives transcript, LLM response, audio MIME, and audio chunks
+- Backend Processing
+  → Transcription
+  → LLM response generation
+  → TTS synthesis
+- Frontend Playback
+  → Uses MediaSource or falls back to Blob for audio playback
+- UI Updates
+  → Displays transcript, response text, and playback progress
+
+## 🎙️ End of Stream: What It Means and Why It's Needed
+
+### 📌 What is "End of Stream"?
+
+In our voice interaction pipeline, the **stream** refers to the continuous flow of audio chunks sent from the frontend to the backend over a WebSocket. These chunks are typically encoded (e.g. WebM) and sent in small intervals (e.g. every 250ms).
+
+The **"end of stream"** is a signal that:
+
+- The user has finished speaking
+- The frontend has stopped recording
+- No more audio chunks will be sent
+
+This signal allows the backend to stop buffering and begin processing (e.g. transcription, LLM response, TTS synthesis).
+
+---
+
+### 🛠️ Why the Backend Needs It
+
+Without an explicit end-of-stream signal, the backend cannot reliably determine:
+
+- Whether the user is done speaking
+- Whether the user has paused briefly
+- Whether the connection was interrupted
+
+This could lead to:
+
+- Hanging indefinitely while waiting for more chunks
+- Premature processing based on unreliable timeouts
+
+---
+
+### ✅ How It Works
+
+#### Frontend
+
+After recording is complete, the frontend sends a special marker:
+
+```ts
+wsRef.current.send(encoder.encode("__END__"));
+```

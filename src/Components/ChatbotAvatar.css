@@ -1,0 +1,29 @@
+/* ChatbotAvatar.css */
+.chatbot-avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+.chatbot-avatar img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chatbot-avatar .mouth {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  width: 20px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.2s ease;
+}
+
+.chatbot-avatar.speaking .mouth {
+  transform: translateX(-50%) scaleY(2);
+}
