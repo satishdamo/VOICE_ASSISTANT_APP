@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "./VoiceChat.css";
 import ChatbotAvatar from "./chatbotAvatar";
 
-const WS_URL = "ws://localhost:8000/ws/voice";
+const WS_URL = "wss://voice-assistant-api-i6sz.onrender.com/ws/voice";
 
 const VoiceChat: React.FC = () => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
