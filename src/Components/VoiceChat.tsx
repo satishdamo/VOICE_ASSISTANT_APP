@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./VoiceChat.css";
-import ChatbotAvatar from "./chatbotAvatar";
+import ChatbotAvatar from "./ChatbotAvatar";
 
 const WS_URL = "wss://voice-assistant-api-i6sz.onrender.com/ws/voice";
+//const WS_URL = "ws://localhost:8000/ws/voice";
 
 const VoiceChat: React.FC = () => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -31,6 +32,18 @@ const VoiceChat: React.FC = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
+
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then((stream) => {
+        setAudioStream(stream);
+      })
+      .catch((err) => {
+        console.error("Microphone access failed", err);
+      });
+  }, []);
 
   useEffect(() => {
     if (isRecording) {
@@ -166,6 +179,10 @@ const VoiceChat: React.FC = () => {
     };
 
     wsRef.current.onopen = () => {
+      if (!audioStream) {
+        console.error("Audio stream not ready");
+        return;
+      }
       setTimeout(() => {
         mediaRecorder.start(250);
       }, 100);
